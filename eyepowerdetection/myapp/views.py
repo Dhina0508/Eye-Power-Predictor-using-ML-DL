@@ -60,7 +60,7 @@ class PredictPower(APIView):
                 closepower = (1 / totaldistance) + (1 / pupildis)
                 power = (1 / closepower) + (1 / distantpower)
                 return Response({"power": power})
-            else:
+            else:   
             # Return error response if data is invalid
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
