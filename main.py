@@ -8,7 +8,7 @@ focal_length = 800  # Focal length of the camera in pixels (example value)
 average_eye_size = 30  # Average size of an eye in pixels (example value)
 
 # Load the image
-image = cv2.imread('dhina1.jpg')
+image = cv2.imread('godwin1.jpg')
 
 # Convert the image to grayscale for better processing
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -33,15 +33,14 @@ for (ex, ey, ew, eh) in eyes:
 totaldistance = totaldistance/2
 print(totaldistance)
 # Display the image with detected eyes and distance information
-cv2.imshow('Eye Detection with Distance Estimation', image)
+resized_image = cv2.resize(image, (500, 800))
+cv2.imshow('Eye Detection with Distance Estimation', resized_image)
 pupildis = 0.02422
 distantpower = (1/pupildis)
 closepower = (1/totaldistance) + (1/pupildis)
 print("Close Vision",round(closepower))
 print("Distant Vision",round(distantpower))
-focallength1 = (1/closepower)
-focallength2 = (1/distantpower)
-print(focallength1,focallength2)
+print(closepower)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
