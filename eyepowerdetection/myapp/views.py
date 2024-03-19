@@ -11,9 +11,9 @@ import os
 
 path=os.getcwd()
 
-diag=joblib.load(path+"\\myapp\\diag.joblib")
-lf_pow=joblib.load(path+"\\myapp\\lf_pow.joblib")
-rf_pow=joblib.load(path+"\\myapp\\rf_pow.joblib")
+diag=joblib.load(path+"/myapp/diag.joblib")
+lf_pow=joblib.load(path+"/myapp/lf_pow.joblib")
+rf_pow=joblib.load(path+"/myapp/rf_pow.joblib")
 
 class PredictPower(APIView):
      def post(self, request):
