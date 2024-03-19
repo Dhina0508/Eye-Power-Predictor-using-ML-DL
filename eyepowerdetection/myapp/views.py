@@ -5,6 +5,15 @@ import numpy as np
 import urllib.request
 from .serializers import DataModelSerializer
 from rest_framework import status
+import joblib
+import os
+
+
+path=os.getcwd()
+
+diag=joblib.load(path+"\\myapp\\diag.joblib")
+lf_pow=joblib.load(path+"\\myapp\\lf_pow.joblib")
+rf_pow=joblib.load(path+"\\myapp\\rf_pow.joblib")
 
 class PredictPower(APIView):
      def post(self, request):
@@ -65,3 +74,13 @@ class PredictPower(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error":str(e)}, status=500)
+        
+class diagonisis(APIView):
+     def post(self, request):
+         request_data = request.data
+         input_data = np.array([list(request_data.values())])
+         
+         dg=diag.predict(input_data)
+         lf=lf_pow.predict(input_data)
+         rf=rf_pow.predict(input_data)
+         return Response({"diagnosis":dg,"left_power":lf,"right_power":rf})
