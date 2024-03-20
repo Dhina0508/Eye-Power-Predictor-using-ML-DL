@@ -131,7 +131,6 @@ class diagonisis(APIView):
      def post(self, request):
          request_data = request.data
          input_data = np.array([list(request_data.values())])
-         
          dg=diag.predict(input_data)
          lf=lf_pow.predict(input_data)
          rf=rf_pow.predict(input_data)
