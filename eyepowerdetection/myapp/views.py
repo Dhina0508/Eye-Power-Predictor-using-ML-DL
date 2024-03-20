@@ -11,9 +11,12 @@ import os
 
 path=os.getcwd()
 
-diag=joblib.load(path+"/myapp/diag.joblib")
-lf_pow=joblib.load(path+"/myapp/lf_pow.joblib")
-rf_pow=joblib.load(path+"/myapp/rf_pow.joblib")
+diag=joblib.load(path+"/myapp/models/diag.joblib")
+lf_pow=joblib.load(path+"/myapp/models/lf_pow.joblib")
+rf_pow=joblib.load(path+"/myapp/models/rf_pow.joblib")
+# diag=joblib.load(path+"\\myapp\\models\\diag.joblib")
+# lf_pow=joblib.load(path+"\\myapp\\models\\lf_pow.joblib")
+# rf_pow=joblib.load(path+"\\myapp\\models\\rf_pow.joblib")
 
 class PredictPower(APIView):
      def post(self, request):
@@ -63,7 +66,7 @@ class PredictPower(APIView):
 
                 
                 # Load the pre-trained Haar cascade classifier for eye detection
-                xml_path = 'myapp/haarcascade_eye.xml'
+                xml_path = 'myapp/models/haarcascade_eye.xml'
                 eye_cascade = cv2.CascadeClassifier(xml_path)
 
                 # Detect eyes in the image
