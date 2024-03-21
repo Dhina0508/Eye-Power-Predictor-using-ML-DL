@@ -4,4 +4,4 @@ from .models import DataModel
 class DataModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = DataModel
-        fields = ['image', 'fontSize']
+        fields = '__all__'
