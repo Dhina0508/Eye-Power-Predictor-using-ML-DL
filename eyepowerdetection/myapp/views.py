@@ -90,7 +90,6 @@ class PredictPower(APIView):
                 distance = round(distance, 2) / 100  # Round to two decimal places
                 leftdistance += distance
                 leftcount +=1
-            leftdistance = leftdistance/leftcount
             
             for (ex, ey, ew, eh) in righteye:
                 # Calculate distance to the eye using monocular depth estimation
@@ -99,7 +98,6 @@ class PredictPower(APIView):
                 distance = round(distance, 2) / 100  # Round to two decimal places
                 rightdistance += distance
                 rightcount +=1
-            rightdistance = rightdistance/rightcount
             
             for (ex, ey, ew, eh) in botheyes:
                 # Calculate distance to the eye using monocular depth estimation
@@ -108,17 +106,26 @@ class PredictPower(APIView):
                 distance = round(distance, 2) / 100  # Round to two decimal places
                 bothdistance += distance
                 bothcount +=1
-            bothdistance = bothdistance/bothcount
+                
+            if leftdistance != 0 and rightdistance != 0 and bothdistance != 0 :
+                rightdistance = rightdistance/rightcount
+                leftdistance = leftdistance/leftcount
+                bothdistance = bothdistance/bothcount
+            else:
+                leftdistance = rightdistance = bothdistance = 0.50
 
 
             # pupildis = 0.03
             # distantpower = (1 / pupildis)
             # closepower = (1 / totaldistance) + (1 / pupildis)
             # power = (1 / closepower) + (1 / distantpower)
-            data = {"left_eye_distance": leftdistance,"right_eye_distance": rightdistance,    "both_eye_distance": bothdistance,
-"left_fontsize": request.data['left_fontsize'],
-"right_fontsize": request.data['right_fontsize'],
-"both_eye_fontsize": request.data['both_eye_fontsize']
+            data = {
+                "left_eye_distance": leftdistance,
+                "right_eye_distance": rightdistance,
+                "both_eye_distance": bothdistance,
+                "left_fontsize": request.data['left_fontsize'],
+                "right_fontsize": request.data['right_fontsize'],
+                "both_eye_fontsize": request.data['both_eye_fontsize']
 }           
             input_data = np.array([list(data.values())])
             dg=diag.predict(input_data)
